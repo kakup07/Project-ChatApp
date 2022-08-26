@@ -9,6 +9,7 @@ const $locationButton = document.querySelector('#send-location')
 const $messages = document.querySelector('#messages')
 const $sidebar = document.querySelector('#sidebar')
 
+
 //Templates
 
 const messageTemplate = document.querySelector('#message-template').innerHTML
@@ -20,13 +21,20 @@ const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
 // console.log(Qs.parse(location.search, { ignoreQueryPrefix: true}))
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true})
 
+
+
+// 
+// const node = document.createElement("li");
+// const textnode = document.createTextNode("Water");
+// node.appendChild(textnode);
+// document.getElementById("myList").appendChild(node);
+
+
+
+
 function autoscroll() {
     // New msg element
     const $newMessage = $messages.lastElementChild
-
-
-
-
 
     // Height of new message
     const newMessageStyles = getComputedStyle($newMessage)
@@ -42,10 +50,9 @@ function autoscroll() {
     // How far i have scrolled
     const scrollOffset = $messages.scrollTop + visibleHeight
     
-    if (containerHeight - newMessageHeight >= scrollOffset) {
+    if (containerHeight - newMessageHeight <= scrollOffset) {
         $messages.scrollTop = $messages.scrollHeight
     }
-
     // console.log(newMessageMargin)
 }
 
@@ -82,6 +89,7 @@ socket.on('roomData', ({ room, users}) => {
 
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault()
+    
 
     $messageFormButton.setAttribute('disabled', 'disabled')
 
@@ -116,6 +124,8 @@ $locationButton.addEventListener('click', () => {
         })
     })
 })
+
+
 
 socket.emit('join', { username, room }, (error) => {
     if (error) {

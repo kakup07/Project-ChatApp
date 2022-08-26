@@ -4,7 +4,7 @@ const path = require('path')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 const { generateMessage, generateLocationMessage } = require('./utils/messages')
-const { getUser, getUsersInRoom, removeUser, addUser } = require('./utils/users')
+const { getUser, getRooms , getUsersInRoom, removeUser, addUser } = require('./utils/users')
 
 
 const app = express()
@@ -15,6 +15,7 @@ const port = process.env.PORT || 3000
 const publicDirectoryPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicDirectoryPath))
+
 
 
 
@@ -71,7 +72,12 @@ io.on('connection', (socket) => {
     })
 })
 
+app.get('/api/rooms', (req, res) => {
+    res.send({rooms: getRooms()})
+})
 
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`)
 })
+
+
