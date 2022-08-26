@@ -25,7 +25,7 @@ const addUser = ({ id, username, room }) => {
     //Store user
     const user = { id, username, room }
     users.push(user)
-    if (!(room in rooms)){
+    if (!(rooms.includes(room))){
         rooms.push(room)
     }
     return { user }
