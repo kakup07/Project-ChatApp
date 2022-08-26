@@ -1,6 +1,6 @@
 const $rooms = document.querySelector('.rooms')
 
-fetch('http://localhost:3000/api/rooms')
+fetch('/api/rooms')
     .then((res) => res.json())
     .then((data) => {
         data.rooms.forEach(room => {
